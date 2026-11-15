@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amazon Keyword & Listing Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="mark">AK</div>
+      <div>
+        <p class="eyebrow">AUTOMATED LISTING NAVIGATOR</p>
+        <h1>Amazon Keyword & Listing Assistant</h1>
+        <p class="sub">Searches keywords on Amazon.in, matches target listings by title prefix, waits 20s with scrolling, and cycles automatically.</p>
+      </div>
+      <span class="pill">Amazon.in</span>
+    </header>
+
+    <section class="panel">
+      <div class="section-head">
+        <div><p class="eyebrow">STEP 01</p><h2>Configure Keywords & Target Listings</h2></div>
+        <span id="count" class="count">0 tasks</span>
+      </div>
+      
+      <label for="taskInput">Enter items (Format: <code>keyword | target title starting text</code>, one per line):</label>
+      <textarea id="taskInput" placeholder="vomit bag | Solidifier Disposable Spit Cup&#10;emesis bag | FROID Insulin Cooling Wallet&#10;insulin pouch"></textarea>
+      
+      <div class="or"><span>OR UPLOAD EXCEL SPREADSHEET</span></div>
+      <div class="upload-row">
+        <input id="excelFile" type="file" accept=".xlsx,.xls">
+        <button id="uploadBtn" class="btn secondary">Import Excel</button>
+      </div>
+      <p class="hint">Excel format: Column A = Keyword, Column B = Target Title Starting Text (optional).</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div><p class="eyebrow">STEP 02</p><h2>Execution Settings</h2></div>
+      </div>
+      <div class="settings">
+        <div class="setting">
+          <label for="dwell">Listing Dwell Time</label>
+          <div class="input-wrap"><input id="dwell" type="number" min="10" max="60" value="20"><span>seconds</span></div>
+          <p class="hint">Time spent waiting & scrolling on target listing.</p>
+        </div>
+        <label class="toggle">
+          <input id="auto" type="checkbox" checked>
+          <span class="switch"></span>
+          <span><b>Continuous Auto-Advance</b><small>Automatically proceed to the next keyword after dwell time.</small></span>
+        </label>
+      </div>
+
+      <div class="notice"><b>Workflow:</b> For each keyword, the bot searches Amazon.in, locates the product whose title starts with your target text, clicks it, stays on the product page for 20 seconds with scrolling, and then moves to the next keyword.</div>
+      
+      <div class="actions">
+        <button id="startBtn" class="btn primary">Start Automated Session</button>
+        <button id="nextBtn" class="btn secondary" disabled>Next Search</button>
+        <button id="stopBtn" class="btn danger" disabled>Stop Session</button>
+      </div>
+    </section>
+
+    <section class="panel progress-panel">
+      <div class="section-head">
+        <div><p class="eyebrow">LIVE SESSION</p><h2>Progress & Status</h2></div>
+        <span id="status" class="status idle">Not started</span>
+      </div>
+      <div class="progress-track"><div id="bar"></div></div>
+      <div class="progress-meta"><span id="progressText">0 of 0 completed</span><span id="timerText">Waiting</span></div>
+      <div id="current" class="current">Ready to begin workflow.</div>
+      <div id="log" class="log" aria-live="polite"><div class="log-empty">Activity log will appear here...</div></div>
+    </section>
+    
+    <footer>Runs locally on your machine.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
